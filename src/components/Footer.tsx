@@ -2,7 +2,7 @@ import { Github, Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-emerald-600 to-green-700 text-white py-6 mt-10 border-t border-emerald-800">
+    <footer className="bg-gradient-to-r from-emerald-600 to-green-700 text-white py-4 mt-6 border-t border-emerald-800">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         
         {/* Left Section */}
