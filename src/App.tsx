@@ -25,14 +25,14 @@ function App() {
         <div className="flex gap-6">
           <a
             href=""
-            className="px-6 py-4 rounded-xl bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 transform transition text-xl font-semibold shadow-lg"
+            className="px-4 py-2 rounded-2xl bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 transform transition text-xl font-semibold shadow-lg"
           >Quiz
           </a>
           <a
             href="https://algorand.co/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transform transition text-xl font-semibold shadow-lg"
+            className="px-4 py-2 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transform transition text-xl font-semibold shadow-lg"
           >Explore
           </a>
         </div>
