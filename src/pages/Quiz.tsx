@@ -1,105 +1,72 @@
-import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
-type Question = {
-  question: string;
-  options: string[];
-  answer: string;
+const quizData: Record<string, { question: string; options: string[]; answer: string }[]> = {
+  blockchain: [
+    { question: "What is a blockchain?", options: ["Database", "Ledger", "Spreadsheet", "File"], answer: "Ledger" },
+    { question: "Which consensus does Bitcoin use?", options: ["PoW", "PoS", "DPoS", "PBFT"], answer: "PoW" }
+  ],
+  web3: [
+    { question: "What does Web3 enable?", options: ["Centralized apps", "Decentralized apps", "Websites only", "Emails"], answer: "Decentralized apps" }
+  ],
+  algorand: [
+    { question: "What consensus mechanism does Algorand use?", options: ["PoW", "PoS", "Pure PoS", "DPoS"], answer: "Pure PoS" }
+  ],
+  fullstack: [
+    { question: "Which stack is MERN?", options: ["Mongo, Express, React, Node", "MySQL, Express, React, Next", "Mongo, Ember, Rails, Node"], answer: "Mongo, Express, React, Node" }
+  ],
+  ai: [
+    { question: "Which library is popular for deep learning?", options: ["Pandas", "TensorFlow", "Flask", "Django"], answer: "TensorFlow" }
+  ],
+  cloud: [
+    { question: "Which is NOT a cloud provider?", options: ["AWS", "Azure", "Google Cloud", "Oracle SQL"], answer: "Oracle SQL" }
+  ],
 };
 
-const quizData: Question[] = [
-  {
-    question: "Which blockchain is this quiz app built on?",
-    options: ["Ethereum", "Algorand", "Solana", "Polygon"],
-    answer: "Algorand",
-  },
-  {
-    question: "What wallet are we connecting to in this project?",
-    options: ["MetaMask", "Trust Wallet", "Pera Wallet", "Phantom"],
-    answer: "Pera Wallet",
-  },
-  {
-    question: "What SDK are we using to interact with Algorand?",
-    options: ["web3.js", "ethers.js", "algosdk", "wagmi"],
-    answer: "algosdk",
-  },
-];
-
-const Quiz: React.FC = () => {
-  const [userAnswers, setUserAnswers] = useState<string[]>(Array(quizData.length).fill(""));
-  const [submitted, setSubmitted] = useState(false);
+export default function Quiz() {
+  const { topic } = useParams<{ topic: string }>();
+  const questions = quizData[topic ?? ""] || [];
+  const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
+  const [finished, setFinished] = useState(false);
 
-  const handleOptionChange = (qIndex: number, option: string) => {
-    const newAnswers = [...userAnswers];
-    newAnswers[qIndex] = option;
-    setUserAnswers(newAnswers);
+  const handleAnswer = (option: string) => {
+    if (option === questions[current].answer) {
+      setScore(score + 1);
+    }
+    if (current + 1 < questions.length) {
+      setCurrent(current + 1);
+    } else {
+      setFinished(true);
+    }
   };
 
-  const handleSubmit = () => {
-    let newScore = 0;
-    quizData.forEach((q, index) => {
-      if (userAnswers[index] === q.answer) {
-        newScore++;
-      }
-    });
-    setScore(newScore);
-    setSubmitted(true);
-  };
+  if (!questions.length) return <p className="text-center mt-20 text-xl">No quiz found for {topic}</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-3xl font-bold mb-6">🚀 Web3 Quiz App</h1>
-
-      {!submitted ? (
-        <div className="w-full max-w-xl bg-gray-800 p-6 rounded-2xl shadow-lg">
-          {quizData.map((q, qIndex) => (
-            <div key={qIndex} className="mb-6">
-              <h2 className="text-lg font-semibold mb-2">{q.question}</h2>
-              <div className="grid grid-cols-2 gap-3">
-                {q.options.map((option, oIndex) => (
-                  <label
-                    key={oIndex}
-                    className={`cursor-pointer border p-2 rounded-lg text-center ${
-                      userAnswers[qIndex] === option
-                        ? "bg-green-600 border-green-400"
-                        : "bg-gray-700 border-gray-500"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name={`question-${qIndex}`}
-                      value={option}
-                      checked={userAnswers[qIndex] === option}
-                      onChange={() => handleOptionChange(qIndex, option)}
-                      className="hidden"
-                    />
-                    {option}
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
-          <button
-            onClick={handleSubmit}
-            className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold"
-          >
-            Submit Quiz
-          </button>
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-6">
+      {!finished ? (
+        <div className="bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-xl">
+          <h2 className="text-2xl font-bold mb-4">{questions[current].question}</h2>
+          <div className="grid grid-cols-1 gap-4">
+            {questions[current].options.map((option) => (
+              <button
+                key={option}
+                onClick={() => handleAnswer(option)}
+                className="p-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition"
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+          <p className="mt-4 text-gray-400">Question {current + 1} of {questions.length}</p>
         </div>
       ) : (
         <div className="bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            🎯 Your Score: {score} / {quizData.length}
-          </h2>
-          {score >= 2 ? (
-            <p className="text-green-400 text-xl">✅ Pass — You did great!</p>
-          ) : (
-            <p className="text-red-400 text-xl">❌ Fail — Try again!</p>
-          )}
+          <h2 className="text-3xl font-bold mb-4">Quiz Finished 🎉</h2>
+          <p className="text-xl">Your Score: {score} / {questions.length}</p>
         </div>
       )}
     </div>
   );
-};
-
-export default Quiz;
+}
