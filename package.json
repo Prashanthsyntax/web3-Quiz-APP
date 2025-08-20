@@ -13,6 +13,7 @@
     "@perawallet/connect": "^1.4.2",
     "@tailwindcss/postcss": "^4.1.11",
     "algosdk": "^3.3.1",
+    "framer-motion": "^12.23.12",
     "lucide-react": "^0.540.0",
     "postcss": "^8.5.6",
     "react": "^19.1.0",
