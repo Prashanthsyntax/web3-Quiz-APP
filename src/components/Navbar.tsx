@@ -11,6 +11,11 @@ export default function Navbar() {
     peraWallet.reconnectSession().then((accounts: string[]) => {
       if (accounts.length) {
         setAccountAddress(accounts[0]);
+
+        // Listen for disconnects
+        peraWallet.connector?.on("disconnect", () => {
+          setAccountAddress(null);
+        });
       }
     });
   }, []);
@@ -28,9 +33,16 @@ export default function Navbar() {
     }
   };
 
-  const handleDisconnectWallet = () => {
-    peraWallet.disconnect();
-    setAccountAddress(null);
+  const handleDisconnectWallet = async () => {
+    try {
+      await peraWallet.disconnect();
+      setAccountAddress(null);
+
+      // Extra cleanup (important in some cases)
+      localStorage.removeItem("PeraWallet.Wallet");
+    } catch (error) {
+      console.error("Disconnect error:", error);
+    }
   };
 
   return (
