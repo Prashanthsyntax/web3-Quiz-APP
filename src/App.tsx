@@ -4,10 +4,11 @@ import Quiz from "./pages/Quiz";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Topics from "./pages/Topics";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <Router>
+      <Router>
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white font-sans">
         <Navbar />
 
@@ -21,6 +22,7 @@ function App() {
           <Footer />
         </footer>
       </div>
+      <ToastContainer />
     </Router>
   );
 }
