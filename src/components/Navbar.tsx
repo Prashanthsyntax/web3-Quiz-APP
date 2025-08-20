@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import algosdk from "algosdk";
 import { PeraWalletConnect } from "@perawallet/connect";
+import { Wallet, LogOut } from "lucide-react";
 
 const peraWallet = new PeraWalletConnect();
 
@@ -34,25 +34,37 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-gray-900 text-white">
-      <div className="text-xl font-bold">🧠 AlgoQuiz</div>
+    <nav className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white shadow-lg">
+      {/* Logo */}
+      <div className="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-green-400 to-teal-500 bg-clip-text text-transparent">
+        🧠 AlgoQuiz
+      </div>
+
+      {/* Wallet Section */}
       <div>
         {accountAddress ? (
-          <div className="flex gap-3 items-center">
-            <span className="text-sm">
-              {accountAddress.slice(0, 6)}...{accountAddress.slice(-4)}
-            </span>
+          <div className="flex items-center gap-4">
+            {/* Wallet Address Display */}
+            <div className="bg-gray-800 px-4 py-2 rounded-2xl flex items-center gap-2 shadow-md hover:bg-gray-700 transition">
+              <Wallet className="w-4 h-4 text-green-400" />
+              <span className="text-sm font-mono">
+                {accountAddress.slice(0, 6)}...{accountAddress.slice(-4)}
+              </span>
+            </div>
+
+            {/* Disconnect Button */}
             <button
               onClick={handleDisconnectWallet}
-              className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-sm"
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-4 py-2 rounded-2xl text-sm font-medium shadow-md transition"
             >
+              <LogOut className="w-4 h-4" />
               Disconnect
             </button>
           </div>
         ) : (
           <button
             onClick={handleConnectWallet}
-            className="bg-green-500 px-4 py-2 rounded hover:bg-green-600"
+            className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 px-6 py-2 rounded-2xl font-medium shadow-md transition"
           >
             Connect Wallet
           </button>
