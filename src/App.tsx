@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Quiz from "./pages/Quiz";
-import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Topics from "./pages/Topics";
 import { ToastContainer } from "react-toastify";
@@ -17,10 +16,6 @@ function App() {
           <Route path="/quiz/:topic" element={<Quiz />} />
           <Route path="/topics" element={<Topics />} />
         </Routes>
-
-        <footer className="fixed bottom-0 left-0 w-full bg-gray-900">
-          <Footer />
-        </footer>
       </div>
       <ToastContainer />
     </Router>

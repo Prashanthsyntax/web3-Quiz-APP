@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Typewriter from "../components/Typewriter";
 import { Wallet, Gift, Trophy, Users, Shield, Coins } from "lucide-react"; // icons
+import Footer from "../components/Footer";
 
 function Home() {
   const features = [
@@ -81,6 +82,7 @@ function Home() {
           ))}
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
