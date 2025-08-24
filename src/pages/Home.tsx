@@ -4,6 +4,7 @@ import { Wallet, Gift, Trophy, Users, Shield, Coins } from "lucide-react"; // ic
 import Footer from "../components/Footer";
 import Testimonial from "../components/Testimonial";
 import TeamSection from "../components/TeamSection";
+import FAQ from "../components/FAQs";
 
 function Home() {
   const features = [
@@ -86,6 +87,7 @@ function Home() {
         </section>
 
         <TeamSection />
+        <FAQ />
       </main>
       <Footer />
     </div>
