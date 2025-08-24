@@ -3,6 +3,7 @@ import Typewriter from "../components/Typewriter";
 import { Wallet, Gift, Trophy, Users, Shield, Coins } from "lucide-react"; // icons
 import Footer from "../components/Footer";
 import Testimonial from "../components/Testimonial";
+import TeamSection from "../components/TeamSection";
 
 function Home() {
   const features = [
@@ -83,6 +84,8 @@ function Home() {
             </div>
           ))}
         </section>
+
+        <TeamSection />
       </main>
       <Footer />
     </div>
