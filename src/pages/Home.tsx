@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Typewriter from "../components/Typewriter";
 import { Wallet, Gift, Trophy, Users, Shield, Coins } from "lucide-react"; // icons
 import Footer from "../components/Footer";
+import Testimonial from "../components/Testimonial";
 
 function Home() {
   const features = [
@@ -67,6 +68,7 @@ function Home() {
             Explore
           </a>
         </div>
+        <Testimonial />
 
         {/* Features Section */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-5xl">
